@@ -45,7 +45,3 @@ import { puppeteerBrowser } from '@code/puppeteer-browser';
 // close the browser
 puppeteerBrowser.closeBrowser();
 ```
-
-### Examples
-
-* [Store Profile](https://gecgithub01.walmart.com/AP-Dev/Store-Profile/tree/dev/server)
