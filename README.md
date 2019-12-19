@@ -1,67 +1,51 @@
-# NPM Package Template
+## Puppeteer Browser
 
-Template for creating npm modules. Including react components.
+### Getting Started
 
-[Example](https://github.com/sriramrudraraju/sriram-npm-package-example) using this template.
+`yarn add @code/puppeteer-browser`
 
-## Using the template
+>Note: This package is dependent on [puppeteer](https://www.npmjs.com/package/puppeteer).
 
-### clone or click `use this template` feature
-* Tweak necessary values in package.json
+### Launching the browser
 
-### `npm install`
-Installs dependencies.
+```typescript
+// to the file where the browser needs to be launched
+import { puppeteerBrowser } from '@code/puppeteer-browser';
 
-### `npm run test`
-runs unit test cases using [jest](https://jestjs.io/en/) (and [enzyme](https://airbnb.io/enzyme/) for react components)
+// start headless browser
+puppeteerBrowser.getBrowser();
 
-### `npm run coverage`
-gives unit tests coverage report.
-
-### `npm run build`
-creates `./dist` prod build folder.
-
-### `npm link` 
- For local testing. More [info](https://docs.npmjs.com/cli/link)
-
-### `npm publish` 
-Publishes to npm. (have to login if needed using `npm login`)
-
-### Github actions for CI/CD
-create `.yml` file for github actions in `.github/workflows` and paste the code
-
+// its better to launch browser on root level
+// so browser need not to be launched on each action
 ```
-name: Publishing to npm
 
-on:
-  push:
-    branches:
-    - master
+### Get PDF
 
-jobs:
-  build:
+```typescript
+import { puppeteerBrowser } from '@code/puppeteer-browser';
 
-    runs-on: ubuntu-latest
+puppeteerBrowser.getPdf({
+  url: string; // page url
+  viewport?: puppeteer.Viewport; // page viewport 
+  cookies?: puppeteer.Cookie[]; // page cookies
+  sessionStorageKeyValues?: SessionStorageKeyValue[]; // sessionStorage in key value pairs
+  networkIdleTime?: number; // wait for milliseconds before continuing
+  numberOfRequests?: number;
+  customElement?: string; // pdf for a custom element instead full page. (eg '#pdfBody', using id selector syntax)
+  pdfOptions: puppeteer.PDFOptions
+});
+```
 
-    steps:
-    - uses: actions/checkout@v1
-    - name: installing dependencies
-      run: npm install
-    - name: running unit tests
-      run: npm run test
-    - name: generating production build
-      run: npm run build
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '10.x'
-        registry-url: 'https://registry.npmjs.org'
-    - run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
- ```
- * Above code was simple CI/CD for pushing to npm when some code is pushed to master branch
- * ${{ secrets.NPM_AUTH_TOKEN }} was set using [github secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
- * NPM_AUTH_TOKEN is obtained from [npm](https://docs.npmjs.com/creating-and-viewing-authentication-tokens)
- 
- ### Storybook Integration
- * code example with integrated [storybook](https://storybook.js.org/) is on `story-book` branch
+
+### Closing the browser
+
+```typescript
+import { puppeteerBrowser } from '@code/puppeteer-browser';
+
+// close the browser
+puppeteerBrowser.closeBrowser();
+```
+
+### Examples
+
+* [Store Profile](https://gecgithub01.walmart.com/AP-Dev/Store-Profile/tree/dev/server)
