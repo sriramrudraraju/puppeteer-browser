@@ -1,9 +1,5 @@
 ## Puppeteer Browser
 
-### Getting Started
-
-`yarn add @code/puppeteer-browser`
-
 >Note: This package is dependent on [puppeteer](https://www.npmjs.com/package/puppeteer).
 
 ### Launching the browser
